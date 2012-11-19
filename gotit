@@ -1,0 +1,62 @@
+#!/bin/sh
+# gotit
+# Script to test whether all of the required
+# Software Carpentry boot camp software is installed.
+# run with:
+# curl blah blah blah | sh
+#
+# REFERENCES
+#
+# [SETUP]
+#   http://software-carpentry.org/boot-camps/boot-camp-standard-software-set-up/ (accessed on 2012-11-19)
+
+echo "Hello $(whoami), if you can see this, we have a shell; good."
+
+try () {
+  # Try the command "$@" and if successful return true (exit
+  # status 0), otherwise returns false (exit status non-0).  All
+  # output is suppressed.
+  "$@" > /dev/null 2>&1
+}
+
+check () {
+  # run the command "$1 --version", or if more than one
+  # argument is supplied, "$@".
+  # if successful, print "$1 good"; if unsucessful,
+  # print "$1 missing".  If $REPORT is set then use that
+  # instead of $1 for reporting.
+  if [ $# -eq 0 ]
+  then
+    echo 1>&2 "check command # command is required"
+    return 99
+  fi
+  if [ $# -eq 1 ]
+  then
+    set -- "$1" --version
+  fi
+  printf "%s " "${REPORT:-$1}"
+  if try "$@"
+  then
+    echo good
+  else
+    echo missing
+  fi
+}
+    
+check bash
+check make
+check nano
+check vi
+check emacs
+check xemacs
+check python
+# The subshell appears to be necessary for dash, ksh and
+# bash --posix.  My reading of the SUSv2 is that it
+# should not be necessary.
+(REPORT=python-sqlite check python -c 'import sqlite3')
+check easy_install
+check nosetests
+(REPORT=Mercurial check hg)
+check sqlite3
+check firefox
+
