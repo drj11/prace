@@ -1,9 +1,21 @@
 #!/bin/sh
 # gotit
+#
+# David Jones, Climate Code Foundation, 2012
+# drj@climatecode.org
+#
 # Script to test whether all of the required
 # Software Carpentry boot camp software is installed.
+#
 # run with:
-# curl blah blah blah | sh
+# curl https://raw.github.com/drj11/prace/master/gotit | sh
+#
+# Bugs:
+#
+# Doesn't test whether the Firefox extension sqlite tool
+# is installed.
+#
+# Doesn't check the version of any tools.
 #
 # REFERENCES
 #
