@@ -42,13 +42,20 @@ check () {
     echo missing
   fi
 }
-    
+editors () (
+  editors_ok=false
+  editors="nano vi emacs xemacs"
+  for ed in $editors
+  do
+    try "$ed" --version && editors_ok=true &&
+      printf "%s good\n" "$ed"
+  done
+  $editors_ok || printf "%s all missing\n" "$editors"
+)
+
 check bash
 check make
-check nano
-check vi
-check emacs
-check xemacs
+editors
 check python
 # The subshell appears to be necessary for dash, ksh and
 # bash --posix.  My reading of the SUSv2 is that it
