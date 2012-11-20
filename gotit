@@ -12,6 +12,8 @@
 #
 # Bugs:
 #
+# On Mac OS X claims firefox is missing even when it's not.
+#
 # Doesn't test whether the Firefox extension sqlite tool
 # is installed.
 #
@@ -66,6 +68,11 @@ editors () (
 )
 
 check bash
+check zip
+check unzip -v
+check tar
+check gunzip
+check wget
 check make
 editors
 check python
