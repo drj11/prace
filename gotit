@@ -56,6 +56,18 @@ check () {
     echo missing
   fi
 }
+runsatall () {
+  # Runs the command "$@" and returns code 0, unless
+  # the result of running the command is exit code 127
+  # (which the shell uses to indicate "command not found").
+  try "$@"
+  if [ $? -eq 127 ]
+  then
+    return 127
+  else
+    return 0
+  fi
+}
 editors () (
   editors_ok=false
   editors="nano vi emacs xemacs"
@@ -81,7 +93,7 @@ check python
 # should not be necessary.
 (REPORT=python-sqlite check python -c 'import sqlite3')
 check easy_install
-check nosetests
+(REPORT=nosetests check runsatall nosetests --version)
 (REPORT=Mercurial check hg)
 check sqlite3
 check firefox
