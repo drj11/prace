@@ -78,6 +78,11 @@ editors () (
   done
   $editors_ok || printf "%s all missing\n" "$editors"
 )
+Firefox () (
+  # First one works on Linux, second on Mac OS X
+  try firefox --version ||
+  try open -g -a Firefox --args --version
+)
 
 check bash
 check zip
@@ -96,5 +101,5 @@ check python
 check nosetests
 (REPORT=Mercurial check hg)
 check sqlite3
-check firefox
+check Firefox
 
