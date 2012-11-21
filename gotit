@@ -92,8 +92,8 @@ check python
 # bash --posix.  My reading of the SUSv2 is that it
 # should not be necessary.
 (REPORT=python-sqlite check python -c 'import sqlite3')
-check easy_install
-(REPORT=nosetests check runsatall nosetests --version)
+(REPORT=easy_install check runsatall easy_install --version)
+check nosetests
 (REPORT=Mercurial check hg)
 check sqlite3
 check firefox
